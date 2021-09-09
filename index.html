@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="nav">
+            <div id="nav-user"></div>
+
+            <div class="nav-menu">
+                <div id="nav-registro" class="nav-menu-item">
+                    Registro
+                </div>
+                <div id="nav-inicio" class="nav-menu-item oculta-nav-item">
+                    Inicio
+                </div>
+                <div id="nav-ranking" class="nav-menu-item oculta-nav-item">
+                    Ranking
+                </div>
+                <div id="nav-salida" class="nav-menu-item oculta-nav-item">
+                    Salir
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <h1>Portal Test</h1>
+
+    <div id="main">
+    </div>
+
+
+
+    
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script> -->
+    
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDO6hCf9hP8Zk2Q_pLmh8CtwUis_9rm5Ow",
+            authDomain: "coder-js-33fd2.firebaseapp.com",
+            projectId: "coder-js-33fd2",
+            storageBucket: "coder-js-33fd2.appspot.com",
+            messagingSenderId: "161872654658",
+            appId: "1:161872654658:web:3e6d5f21c272d82dc418db"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig)
+        const auth = firebase.auth();
+        const fs = firebase.firestore();
+    </script>
+
+    <script src="data.js"></script>
+    <script src="funciones.js"></script>
+    <script src="dom.js"></script>
+    
+</body>
+
+</html>
