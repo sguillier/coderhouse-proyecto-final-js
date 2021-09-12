@@ -13,6 +13,11 @@ linkInicio.addEventListener('click', () => {
     Inicio()
 })
 
+const linkHome = document.getElementById('nav-home')
+linkHome.addEventListener('click', () => {
+    Home()
+})
+
 const linkRanking = document.getElementById('nav-ranking')
 linkRanking.addEventListener('click', () => {
     Ranking()
@@ -20,14 +25,12 @@ linkRanking.addEventListener('click', () => {
 
 const linkSalida = document.getElementById('nav-salida')
 linkSalida.addEventListener('click', () => {
-    localStorage.clear()
-    const navUser = document.getElementById('nav-user')
-    navUser.innerText = ''
-    document.getElementById('nav-registro').classList.toggle("oculta-nav-item")
-    document.getElementById('nav-inicio').classList.toggle("oculta-nav-item")
-    document.getElementById('nav-ranking').classList.toggle("oculta-nav-item")
-    document.getElementById('nav-salida').classList.toggle("oculta-nav-item")
+    auth.signOut().then(() => {
+        console.log("Usuario Deslogueado");
+    });
+    editaNavbar()
     Despedida()
+
 })
 
 
@@ -58,8 +61,6 @@ const Bienvenida = () => {
 
 }
 
-// Ejecutamos la funcion Bienbenida que es la pagina de entrada al portal
-Bienvenida()
 
 
 
@@ -95,95 +96,24 @@ const Despedida = () => {
 
 
 // ============================================================================== //
-//     PAGINA DE INICIO    //
+//     PAGINA HOME    //
 
-const Inicio = () => {
+const Home = () => {
     // Seleccionamos el elemento ancla en el HTML, donde cargamos todo.
     const main = document.getElementById('main')
     // Incertamos
     main.innerHTML = `
-        <h3>Pagina de Inicio</h3>
+        <h3>Home</h3>
         <br>
         <p>Haz Click a continuacion para realizar Test</p>
         <input type="Button" class="boton-2" value="Iniciar" onclick="Test()">
-
         `
+    console.log("Estado del usuario: ", auth.currentUser.uid )
+
 }
 
 
 
-
-
-
-
-
-// ============================================================================== //
-//     PAGINA DE RANKING    //
-
-const Ranking = () => {
-    console.log(resultadosHistoricos)
-
-    resultadosHistoricos = jerarquizaResultados(resultadosHistoricos)
-    console.log("jerarquizados")
-    console.log(resultadosHistoricos)
-
-    const formatoUsuarioRanking = (idUsuario, nombreUsuario) => {
-        console.log(localStorage.getItem('idUsuario'))
-        console.log(idUsuario)
-        console.log(nombreUsuario)
-        if (idUsuario == localStorage.getItem('idUsuario')) {
-            return `<div class="formato-usuario-ranking">${nombreUsuario}</div>`
-        } else {
-            console.log("Estoy aqui")
-            return nombreUsuario
-        }
-    }
-
-    //Aqui generamos la tabla
-    let salida = `
-    <h3>Ranking</h3>
-    <br>
-    <div class="container-ranking">
-        <div class="cabeza-tabla"></div>
-        <table class="tabla-ranking">
-            <tr>
-                <th class="col-1">Nombre</th>
-                <th colspan="2">Puntos</th>
-                <th colspan="2">Tiempo</th>
-            </tr>
-            `
-
-    for (const usuario of resultadosHistoricos) {
-        salida += `
-            <tr>
-                <td class="col-1"> ${formatoUsuarioRanking(usuario.idUsuario, usuario.nombre)} </td>
-                <td class="col-2"> ${usuario.puntos} </td>
-                <td class="col-3"> 
-                    <div class="marcaR" style="
-                        display: inline-block;
-                        height: 10px;
-                        width: ${usuario.puntos * 10 + 3}px;
-                    "></div> 
-                </td>
-                <td class="col-4"> ${usuario.tiempo} </td>
-                <td class="col-5"> 
-                    <div class="marcaAm" style="
-                        display: inline-block;
-                        height: 10px;
-                        width: ${Math.round(usuario.tiempo / 4 + 3)}px;
-                    "></div> 
-                </td>
-            </tr>
-            `
-
-    }
-    salida += `</table>`
-    salida += `</div>`
-
-    // Seleccionamos el elemento ancla en el HTML, donde cargamos todo.
-    const main = document.getElementById('main')
-    main.innerHTML = salida
-}
 
 
 
@@ -198,114 +128,191 @@ const Ranking = () => {
 // ============================================================================== //
 //     MODAL REGISTRO    //
 const Registro = () => {
-    const main = document.getElementById('main')
-    const divContainer = document.createElement("div");
-    divContainer.className = "modal-container"
-
-    divContainer.innerHTML = `
+    document.getElementById('alert').innerHTML = `
+    <div id="modal-registro" class="modal-container" style="display:none">
         <div class="modal-content">
             <h3>Registro</h3> 
             <br> <hr> <br> 
-            <p>A continuacion ingresa tu nombre</p>
-            <p id="modal-p-mensaje"></p>
-            <form id="modal-form">
-                <input id="modal-input" class="input" type="text">
+            <form id="modal-registro-form">
+                <table>
+                    <tr> 
+                        <td class="modal-labbel"> Nombre </td> <td>     <input id="modal-registro-nombre" class="modal-input" type="text"> <p id="modal-registro-mensaje-nombre" class="modal-msg"></p> </td>
+                    </tr>
+                    <tr>
+                        <td class="modal-labbel"> Correo </td> <td>     <input id="modal-registro-correo" class="modal-input" type="text"> </td>
+                    </tr>
+                    <tr>
+                        <td class="modal-labbel"> Contraseña </td> <td> <input id="modal-registro-password" class="modal-input" type="password"> <p id="modal-registro-mensaje-password" class="modal-msg"></p> </td>
+                    </tr>
+                </table>      
                 <button class="boton-2" type="submit">Aceptar</button>
             </form>
             <hr>
-            <button id="modal-cancelar" class="boton-1">Cancelar</button>
+            <button id="modal-registro-cancelar" class="boton-1">Cancelar</button>
         </div>
+    </div>
     `
-
-    //Lanzamos a pantalla el modal (primero invisible, 100% opaco)
-    divContainer.style.opacity = 0
-    main.appendChild(divContainer)
-
-    //Desopacamos lentamente para visualizar el modal
-    let fin, i = 0
-    const progreso = () => {
-        divContainer.style.opacity = i / 100
-        i++
-        if (i == 100) { clearInterval(fin) }
-    }
-    fin = setInterval(progreso, deltaTiempo / 100)
+    $('#modal-registro').fadeIn(600)
 
 
 
-    // Tomamos algunos elementos del DOM ya desplegado
-    const formulario = document.getElementById('modal-form')
-    const pMensaje = document.getElementById('modal-p-mensaje')
-    const entrada = document.getElementById('modal-input')
-    const botonCancelar = document.getElementById('modal-cancelar')
-
-
-
-    //Funcion que Procesa el submit del formulario
-    const procesaFormulario = (e) => {
+    //Procesamos el submit del formulario
+    const formulario = document.getElementById('modal-registro-form')
+    formulario.addEventListener('submit', (e) => {
         e.preventDefault()
-        const nombreUsuario = (entrada.value).trim()
+        
 
-        if (nombreUsuario.length < 4) {
-            pMensaje.innerHTML = `<br> Tu nombre debe tener mínimo 4 caracteres`
-            pMensaje.className = "modal-msg"
-            entrada.classList.add("input-marco-rojo")
+        const inputNombre = (document.getElementById('modal-registro-nombre').value).trim()
+        if (inputNombre.length < 4) {
+            document.getElementById('modal-registro-mensaje-nombre').innerText = `Tu nombre debe tener mínimo 6 caracteres`
+            document.getElementById('modal-registro-nombre').classList.add("input-marco-rojo")
             return
+        }else{
+            document.getElementById('modal-registro-mensaje-nombre').innerText = ''
+            document.getElementById('modal-registro-nombre').classList.remove("input-marco-rojo")
         }
 
-        //Cargamos datos del usuario en el Storage y limpiamos input (esto ultimo solo es estetico)
-        localStorage.setItem('nombreUsuario', nombreUsuario);
-        localStorage.setItem('idUsuario', resultadosHistoricos.length);
-        entrada.value = ''
-
-
-        //Editamos el nav-bar
-        const navUser = document.getElementById('nav-user')
-        navUser.innerText = nombreUsuario
-        document.getElementById('nav-registro').classList.toggle("oculta-nav-item")
-        document.getElementById('nav-inicio').classList.toggle("oculta-nav-item")
-        document.getElementById('nav-ranking').classList.toggle("oculta-nav-item")
-        document.getElementById('nav-salida').classList.toggle("oculta-nav-item")
-
-
-        //Eliminamos lentamente el modal
-        i = 100
-        const bajada = () => {
-            divContainer.style.opacity = i / 100
-            i--
-            if (i == 0) { clearInterval(fin) }
+        
+        const inputPassword = (document.getElementById('modal-registro-password').value).trim()
+        if (inputPassword.length < 6) {
+            document.getElementById('modal-registro-mensaje-password').innerText = `Tu password debe tener mínimo 6 caracteres`
+            document.getElementById('modal-registro-password').classList.add("input-marco-rojo")
+            return
+        }else{
+            document.getElementById('modal-registro-mensaje-password').innerText = ''
+            document.getElementById('modal-registro-password').classList.remove("input-marco-rojo")
         }
-        fin = setInterval(bajada, deltaTiempo / 100)
 
-        // Lanza a pantalla pagina Inicio luego de deltaTiempo 
-        setTimeout(Inicio, deltaTiempo)
-    }
+        
+        const inputCorreo = (document.getElementById('modal-registro-correo').value).trim()
+        
+        auth
+        .createUserWithEmailAndPassword(inputCorreo, inputPassword)
+        .then((userCredential) => {
+            //Vemos en consola algunos valores
+            console.log('Usuario Registrado')
+            console.log('Sus credenciales son: ',userCredential)
+
+            
+            // Guardamos el nombre del usuario en firebase
+            userCredential.user.updateProfile({
+                displayName: inputNombre,
+                // photoURL: "https://example.com/jane-q-user/profile.jpg"
+            })
+              
+
+            // Creacion del usuario en la base de datos
+            fs.collection("Usuarios").doc(userCredential.user.uid).set({
+                nombre: inputNombre,
+                resultados: []
+            })
+            .then(() => {
+                console.log("Escritura en FireStore correcta!");
+            })
+            .catch((error) => {
+                console.error("Error al escribir en FireStore: ", error);
+            });
+            
+            
+            //Editamos el nav-bar y sacamos el modal
+            editaNavbar(inputNombre)
+            Home()
+            $('#modal-registro').fadeOut(600)
+        })
+        .catch((error) => {
+            console.log("Error con el registro:", error)
+            // An error occurred
+        });
+        
+    })
 
 
-
-    //Funcion que Procesa el click al boton cancelar del formulario
-    const procesaBotonCancelar = () => {
-
-        //Eliminamos lentamente el modal
-        i = 100
-        const bajada = () => {
-            divContainer.style.opacity = i / 100
-            i--
-            if (i == 0) { clearInterval(fin) }
-        }
-        fin = setInterval(bajada, deltaTiempo / 100)
-
-
-        //Recargamos la pagina de bienbenida
-        setTimeout(Bienvenida, deltaTiempo)
-    }
-
-
-    // Escuchamos los eventos (botones del formulario)
-    formulario.addEventListener('submit', procesaFormulario)
-    botonCancelar.addEventListener('click', procesaBotonCancelar)
-
-
+    //Procesamos la cancelacion del formulario
+    const botonCancelar = document.getElementById('modal-registro-cancelar')
+    botonCancelar.addEventListener('click', () => {
+        $('#modal-registro').fadeOut(600)
+    })
+    
 }
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+// ============================================================================== //
+//     MODAL INICIO SESION    //
+const Inicio = () => {
+    document.getElementById('alert').innerHTML = `
+    <div id="modal-inicio" class="modal-container" style="display:none">
+        <div class="modal-content">
+            <h3>Inicio de Sesión</h3> 
+            <br> <hr> <br> 
+            <form id="modal-inicio-form">
+                <table>
+                    <tr>
+                        <td class="modal-labbel"> Correo </td> <td>     <input id="modal-inicio-correo" class="modal-input" type="text"> </td>
+                    </tr>
+                    <tr>
+                        <td class="modal-labbel"> Contraseña </td> <td> <input id="modal-inicio-password" class="modal-input" type="password"> </td>
+                    </tr>
+                </table>      
+                <button class="boton-2" type="submit">Aceptar</button>
+            </form>
+            <hr>
+            <button id="modal-inicio-cancelar" class="boton-1">Cancelar</button>
+        </div>
+    </div>
+    `
+    $('#modal-inicio').fadeIn(600)
+
+
+
+    //Procesamos el submit del formulario
+    const formulario = document.getElementById('modal-inicio-form')
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault()
+        
+        const inputPassword = (document.getElementById('modal-inicio-password').value).trim()
+        const inputCorreo = (document.getElementById('modal-inicio-correo').value).trim()
+        
+
+        auth
+        .signInWithEmailAndPassword(inputCorreo, inputPassword)
+        .then((userCredential) => {
+            console.log('Credenciales usuario logueado', userCredential)
+            
+            editaNavbar(userCredential.user.displayName)
+            Home()
+            $('#modal-inicio').fadeOut(600)
+        });
+        
+
+        
+    })
+
+
+    //Procesamos la cancelacion del formulario
+    const botonCancelar = document.getElementById('modal-inicio-cancelar')
+    botonCancelar.addEventListener('click', () => {
+        $('#modal-inicio').fadeOut(600)
+    })
+    
+}
+
+
+
+
+
+
+
 
 
 
@@ -335,11 +342,19 @@ const Test = () => {
                 preguntas.push({ idPregunta: e.id, ...e.data() })
             });
             //Con los datos obtenidos imprimimos el Test en pantalla
-            printTest(preguntas)
+            
+            //Previniendo que no haya internet
+            if(preguntas.length != 0){
+                printTest(preguntas)    
+            }else{
+                pantallaError("Lo sentimos, no es posible conectar con el servidor")
+            }
             salidaTransicion()
         })
         .catch((error) => {
             console.log("Error getting documents: ", error);
+            pantallaError("Lo sentimos, no es posible conectar con el servidor")
+            salidaTransicion()
         });
 }
 
@@ -439,16 +454,172 @@ const printTest = (preguntas) => {
 
         window.scrollTo(0, -100000)
 
+        console.log(auth.currentUser.uid)
+        const resultados = fs.collection("Usuarios").doc(auth.currentUser.uid);
 
-        const idUsuario = localStorage.getItem('idUsuario')
-        const nombreUsuario = localStorage.getItem('nombreUsuario')
-        resultadosHistoricos.push({ idUsuario: parseInt(idUsuario), nombre: nombreUsuario, area: "matematica", puntos: puntos, tiempo: tiempo })
+        resultados.update({
+            resultados: firebase.firestore.FieldValue.arrayUnion(
+                {
+                    puntos: puntos,
+                    tiempo: tiempo
+                }
+            )
+        });
 
 
     })
     
 
 }
+
+
+
+
+
+
+
+
+// ============================================================================== //
+//     PAGINA DE RANKING    //
+
+const Ranking = () => {
+    entradaTransicion()
+
+    const resultadosHistoricos = []
+    fs.collection("Usuarios")
+        .get()
+        .then((snapshot) => {
+            snapshot.forEach((usuario) => {
+                const resultadosLocal = usuario.data().resultados
+                resultadosLocal.forEach((e) => {
+                    resultadosHistoricos.push({...{ idUsuario: usuario.id, nombre: usuario.data().nombre}, ...e})
+                });
+            });
+
+            console.log("resultadosHistoricos")
+            console.log(resultadosHistoricos)
+            
+            //Previniendo que no haya internet
+            if(resultadosHistoricos.length != 0){
+                printRanking(resultadosHistoricos)    
+            }else{
+                pantallaError("Lo sentimos, no es posible conectar con el servidor")
+            }
+            salidaTransicion()
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+            pantallaError("Lo sentimos, no es posible conectar con el servidor")
+            salidaTransicion()
+        });
+}
+
+
+const printRanking = (resultadosHistoricos) => {
+    resultadosHistoricos = jerarquizaResultados(resultadosHistoricos)
+    
+    //Aqui generamos la tabla
+    let salida = `
+    <h3>Ranking</h3>
+    <br>
+    <div class="container-ranking">
+        <div class="cabeza-tabla" style="display: none;"></div>
+        <table class="tabla-ranking" style="display: none;">
+            <tr>
+                <th class="col-1">Nombre</th>
+                <th colspan="2">Puntos</th>
+                <th colspan="2">Tiempo</th>
+            </tr>
+            `
+
+    for (const usuario of resultadosHistoricos) {
+        salida += `
+            <tr>
+                <td class="col-1 user-${usuario.idUsuario}"> ${usuario.nombre} </td>
+                <td class="col-2"> ${usuario.puntos} </td>
+                <td class="col-3"> 
+                    <div class="marcaR" style="
+                        display: none;
+                        height: 10px;
+                        width: ${usuario.puntos * 20 + 10}px;
+                    "></div> 
+                </td>
+                <td class="col-4"> ${usuario.tiempo} </td>
+                <td class="col-5"> 
+                    <div class="marcaAm" style="
+                        display: none;
+                        height: 10px;
+                        width: ${Math.round(usuario.tiempo / 2 + 10)}px;
+                    "></div> 
+                </td>
+            </tr>
+            `
+
+    }
+    salida += `</table>`
+    salida += `</div>`
+
+    // Seleccionamos el elemento ancla en el HTML, donde cargamos todo.
+    const main = document.getElementById('main')
+    main.innerHTML = salida
+
+    // const idUsuario = localStorage.getItem('idUsuario')
+    const idUsuario = auth.currentUser.uid
+    const claseUsuario = $(`.user-${idUsuario}`)
+    claseUsuario.addClass("formato-usuario-ranking-local")
+
+    $('.cabeza-tabla')
+        .slideDown(600)
+        
+    $('.tabla-ranking').slideDown(1200, () => {
+        $('.marcaAm').toggle(600)
+        $('.marcaR').toggle(600)
+    })
+
+    
+}
+
+
+
+
+
+
+
+
+
+// ============================================================================== //
+//     PANTALLA DE ERROR    //
+
+const pantallaError = (mensaje)=>{
+    const main = document.getElementById('main')
+    main.innerHTML = `
+        <h3 style="color:red">${mensaje}</h3>
+        <br>
+        <p>Dibujo de un robot desconectado u algo asi</p>
+    `
+}
+
+
+
+
+
+
+// ============================================================================== //
+//     INICIALIZAMOS LA APP     //
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        console.log("Usuario Conectado ID: ", user.uid )
+        editaNavbar(user.displayName)
+        Home()
+    } else {
+        // User is signed out
+        console.log("Usuario Desconectado")
+        Bienvenida()
+    }
+});
 
 
 

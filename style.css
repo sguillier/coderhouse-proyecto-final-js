@@ -186,9 +186,9 @@ cursor: pointer;
     border-radius: 10px;
 }
 
-input{
-  display:block;
-  margin:20px auto;
+.modal-input{
+  display:inline-block;
+  margin:10px auto;
   padding: 5px;
   border-radius: 5px;
   border-color:gray;
@@ -196,9 +196,15 @@ input{
   
 }
 
+.modal-labbel{
+  text-align: right;
+  padding-right: 8px;
+  /* font-weight: bold; */
+}
+
 .input-marco-rojo{
-  border-color:var(--colorR);
-  border-width: 1px;
+  border-color:red;
+  border-width: 2px;
 }
 
 .input-marco-rojo:focus{
@@ -257,13 +263,13 @@ th{
 }
 
 td{
-  padding: 3px;
+  /* padding: 3px; */
 }
 
 .col-1{
   text-align: left;
   width: 130px;
-  padding-left: 15px;
+  padding: 3px 0px 3px 15px;
 }
 
 .col-2{
@@ -273,7 +279,7 @@ td{
 
 .col-3{
   text-align: left;
-  width: 50px;
+  width: 90px;
 }
 
 .col-4{
@@ -283,23 +289,28 @@ td{
 
 .col-5{
   text-align: left;
-  width: 50px;
+  width: 90px;
 }
 
 .marcaR{
   background-color: var(--colorR);
+  border-radius: 5px;
 }
 
 .marcaAm{
   background-color: var(--colorAm);
+  border-radius: 5px;
 }
 
 .formato-usuario-ranking{
-  background-color: rgb(169, 169, 169);
-  border-radius: 5px;
-  padding: 5px;
+  padding: 3px 0px 3px 15px;
 }
 
+.formato-usuario-ranking-local{
+  font-weight: bold;
+  color: var(--colorAm);
+  padding: 3px 0px 3px 15px;
+}
 
 
 

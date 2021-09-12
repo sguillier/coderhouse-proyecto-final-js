@@ -77,3 +77,56 @@ const salidaTransicion = () => {
     }, deltaTiempo)
     
 }
+
+
+
+const editaNavbar = (nombre='') => {
+    document.getElementById('nav-user').innerText = nombre
+    
+    if(nombre != ''){
+        document.getElementById('nav-registro').classList.add("oculta-nav-item")
+        document.getElementById('nav-inicio').classList.add("oculta-nav-item")
+        document.getElementById('nav-home').classList.remove("oculta-nav-item")
+        document.getElementById('nav-ranking').classList.remove("oculta-nav-item")
+        document.getElementById('nav-salida').classList.remove("oculta-nav-item")
+    }else{
+        document.getElementById('nav-registro').classList.remove("oculta-nav-item")
+        document.getElementById('nav-inicio').classList.remove("oculta-nav-item")
+        document.getElementById('nav-home').classList.add("oculta-nav-item")
+        document.getElementById('nav-ranking').classList.add("oculta-nav-item")
+        document.getElementById('nav-salida').classList.add("oculta-nav-item")
+    }
+
+    
+}
+
+
+
+
+// //Lanzamos a pantalla el modal (primero invisible, 100% opaco)
+    // divContainer.style.opacity = 0
+    // main.appendChild(divContainer)
+
+    // //Desopacamos lentamente para visualizar el modal
+    // let fin, i = 0
+    // const progreso = () => {
+    //     divContainer.style.opacity = i / 100
+    //     i++
+    //     if (i == 100) { clearInterval(fin) }
+    // }
+    // fin = setInterval(progreso, deltaTiempo / 100)
+
+
+
+
+        // //Eliminamos lentamente el modal
+        // i = 100
+        // const bajada = () => {
+        //     divContainer.style.opacity = i / 100
+        //     i--
+        //     if (i == 0) { clearInterval(fin) }
+        // }
+        // fin = setInterval(bajada, deltaTiempo / 100)
+
+        // // Lanza a pantalla pagina Inicio luego de deltaTiempo 
+        // setTimeout(Inicio, deltaTiempo)

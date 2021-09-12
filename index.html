@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Test</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -16,11 +17,14 @@
             <div id="nav-user"></div>
 
             <div class="nav-menu">
-                <div id="nav-registro" class="nav-menu-item">
+                <div id="nav-registro" class="nav-menu-item oculta-nav-item">
                     Registro
                 </div>
                 <div id="nav-inicio" class="nav-menu-item oculta-nav-item">
-                    Inicio
+                    Inicio Sesion
+                </div>
+                <div id="nav-home" class="nav-menu-item oculta-nav-item">
+                    Home
                 </div>
                 <div id="nav-ranking" class="nav-menu-item oculta-nav-item">
                     Ranking
@@ -35,6 +39,9 @@
     <h1>Portal Test</h1>
 
     <div id="main">
+    </div>
+
+    <div id="alert">
     </div>
 
 
@@ -60,7 +67,7 @@
             messagingSenderId: "161872654658",
             appId: "1:161872654658:web:3e6d5f21c272d82dc418db"
         };
-
+        
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig)
         const auth = firebase.auth();
