@@ -120,12 +120,11 @@ h1{
 
 
 
-
 /*----------------------------------------------------------------------*/
 /*     Botones    */
 
 .boton-1{
-    display:block;
+    /* display:block; */
     margin: 20px auto;
     padding: 15px;
     background-color:var(--colorR);
@@ -140,7 +139,7 @@ h1{
 }
 
 .boton-2{
-  display:block;
+  /* display:block; */
   margin: 20px auto;
   padding: 15px;
   background-color:var(--colorAm);
