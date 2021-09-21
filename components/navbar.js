@@ -27,8 +27,6 @@ linkSalida.addEventListener('click', () => {
     auth.signOut().then(() => {
         Despedida()
     });
-    // editaNavbar()
-    
 })
 
 

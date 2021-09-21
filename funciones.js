@@ -130,3 +130,11 @@ const editaNavbar = (nombre='') => {
 
         // // Lanza a pantalla pagina Inicio luego de deltaTiempo 
         // setTimeout(Inicio, deltaTiempo)
+
+
+
+        
+// ============================================================================== //
+// RELOJ
+
+

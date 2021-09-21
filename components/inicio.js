@@ -5,6 +5,7 @@
 // ============================================================================== //
 //     MODAL INICIO SESION    //
 const Inicio = () => {
+    //Pintamos en Pantalla el modal
     document.getElementById('alert').innerHTML = `
     <div id="modal-inicio" class="modal-container" style="display:none">
         <div class="modal-content">
@@ -38,7 +39,7 @@ const Inicio = () => {
         const inputPassword = (document.getElementById('modal-inicio-password').value).trim()
         const inputCorreo = (document.getElementById('modal-inicio-correo').value).trim()
         
-
+        //Validamos con Auth de FireBase
         auth
         .signInWithEmailAndPassword(inputCorreo, inputPassword)
         .then((userCredential) => {

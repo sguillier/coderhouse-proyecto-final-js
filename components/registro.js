@@ -38,6 +38,7 @@ const Registro = () => {
         e.preventDefault()
         
 
+        //Validamos algo el nombre de usuario
         const inputNombre = (document.getElementById('modal-registro-nombre').value).trim()
         if (inputNombre.length < 4) {
             document.getElementById('modal-registro-mensaje-nombre').innerText = `Tu nombre debe tener mínimo 6 caracteres`
@@ -49,6 +50,7 @@ const Registro = () => {
         }
 
         
+        //Validamos algo el password
         const inputPassword = (document.getElementById('modal-registro-password').value).trim()
         if (inputPassword.length < 6) {
             document.getElementById('modal-registro-mensaje-password').innerText = `Tu password debe tener mínimo 6 caracteres`
@@ -70,7 +72,7 @@ const Registro = () => {
             console.log('Sus credenciales son: ',userCredential)
 
             
-            // Guardamos el nombre del usuario en firebase
+            // Guardamos el nombre del usuario en Auth Firebase
             userCredential.user.updateProfile({
                 displayName: inputNombre,
                 // photoURL: "https://example.com/jane-q-user/profile.jpg"

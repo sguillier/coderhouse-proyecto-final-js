@@ -5,13 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Test</title>
+    <title>Portal Test 3.0</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Libreria jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Libreria Latex -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async=""></script>
+    
+
+
 </head>
 
 <body>
 
+    <!-- Barra de Navegacion -->
     <header class="header">
         <nav class="nav">
             <div id="nav-user"></div>
@@ -36,29 +45,25 @@
         </nav>
     </header>
 
-    <h1>Portal Test</h1>
 
+    <!-- Ventana de Renderizado -->
     <div id="main">
     </div>
 
+    <!-- Ventanas Emergentes -->
     <div id="alert">
     </div>
 
-
-
     
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+
+
+    <!-- Librerias FireBase -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script> -->
-    
-    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
 
     <script>
-        // Your web app's Firebase configuration
+        // Keys de Acceso 
         const firebaseConfig = {
             apiKey: "AIzaSyDO6hCf9hP8Zk2Q_pLmh8CtwUis_9rm5Ow",
             authDomain: "coder-js-33fd2.firebaseapp.com",
@@ -67,14 +72,14 @@
             messagingSenderId: "161872654658",
             appId: "1:161872654658:web:3e6d5f21c272d82dc418db"
         };
-        
-        // Initialize Firebase
+
+        // Inicializa Firebase
         const app = firebase.initializeApp(firebaseConfig)
         const auth = firebase.auth();
         const fs = firebase.firestore();
     </script>
 
-    <script src="funciones.js"></script>
+    <script src="./funciones.js"></script>
     <script src="./components/bienvenida.js"></script>
     <script src="./components/despedida.js"></script>
     <script src="./components/home.js"></script>
@@ -84,7 +89,7 @@
     <script src="./components/test.js"></script>
     <script src="./components/ranking.js"></script>
     <script src="./components/navbar.js"></script>
-    
+
 </body>
 
 </html>

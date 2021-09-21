@@ -6,6 +6,7 @@
 const Ranking = () => {
     entradaTransicion()
 
+    //Extraemos Datos desde FireStore
     const resultadosHistoricos = []
     fs.collection("Usuarios")
         .get()
@@ -17,8 +18,6 @@ const Ranking = () => {
                 });
             });
 
-            console.log("resultadosHistoricos")
-            console.log(resultadosHistoricos)
             
             //Previniendo que no haya internet
             if(resultadosHistoricos.length != 0){
@@ -41,6 +40,7 @@ const printRanking = (resultadosHistoricos) => {
     
     //Aqui generamos la tabla
     let salida = `
+    <h1>Portal Test</h1>
     <h3>Ranking</h3>
     <br>
     <div class="container-ranking">
@@ -89,6 +89,7 @@ const printRanking = (resultadosHistoricos) => {
     const claseUsuario = $(`.user-${idUsuario}`)
     claseUsuario.addClass("formato-usuario-ranking-local")
 
+    //Algo de Efectos de Animación
     $('.cabeza-tabla')
         .slideDown(600)
         
@@ -97,7 +98,6 @@ const printRanking = (resultadosHistoricos) => {
         $('.marcaR').toggle(600)
     })
 
-    
 }
 
 
