@@ -16,7 +16,7 @@
 
 
     /**MEDIDAS**/
-    --anchoPagina : 900px;
+    --anchoPagina : 800px;
     --altoNavbar : 40px;  
     --anchoModal : 400px;
     --altoModal : 300px;
@@ -123,6 +123,21 @@ h1{
 
 /*----------------------------------------------------------------------*/
 /*     Botones    */
+
+.boton-3{
+  display:inline-block;
+  margin: 20px auto;
+  padding: 15px;
+  background-color:var(--colorADD);
+  color: #fff;
+  border-radius: 5px;
+  border: 0px;
+}
+
+.boton-3:hover {
+  color:var(--colorALL);
+  cursor: pointer;
+}
 
 .boton-2{
   display:inline-block;
@@ -532,7 +547,16 @@ color:var(--colorAm);
 
 
 
+/*----------------------------------------------------------------------*/
+/*     CURSOR    */
+#cursor{
+  display: inline-block;
+  color: white;
+  /* color: var(--colorR); */
+}
 
-
+.cursor-rojo{
+  color: var(--colorR) !important;
+}
 
 

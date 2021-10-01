@@ -66,7 +66,7 @@ const printTest = (preguntas) => {
         `</div>
         <p> <button id="boton-enviar-test" class="boton-2">Enviar</button> </p>
         </form>
-        <p> <button id="cancela-test" class="boton-1">Cancelar</button> </p>
+        <p> <button id="cancela-test" class="boton-3">Cancelar</button> </p>
     </div>`
     
 

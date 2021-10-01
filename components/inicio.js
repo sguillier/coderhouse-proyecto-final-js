@@ -23,7 +23,7 @@ const Inicio = () => {
                 <p><button class="boton-2" type="submit">Aceptar</button></p>
             </form>
             <hr>
-            <p> <button id="modal-inicio-cancelar" class="boton-1">Cancelar</button> </p>
+            <p> <button id="modal-inicio-cancelar" class="boton-3">Cancelar</button> </p>
         </div>
     </div>
     `
